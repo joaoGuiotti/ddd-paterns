@@ -64,9 +64,6 @@ export default class Customer {
         if (points <= 0) {
             throw new Error('Points must be greater than zero');
         }
-        if (!this._active) {
-            throw new Error('For add points customer must be active');
-        }
         this._rewardPoints += points;
     }
 
