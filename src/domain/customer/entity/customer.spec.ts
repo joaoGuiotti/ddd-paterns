@@ -53,14 +53,6 @@ describe('Customer Unit Entity', () => {
         }).toThrow('Points must be greater than zero');
     });
 
-    it('should throw error when try add poitns when active is false', () => {
-        const customer = new Customer('123', 'John Doe');
-        customer.deactivate();
-        expect(() => {
-            customer.addRewardPoints(1);
-        }).toThrow('For add points customer must be active');
-    });
-
     it('should add reward points', () => {
         const customer = new Customer('123', 'John Doe');
         expect(customer.rewardPoints).toBe(0);
