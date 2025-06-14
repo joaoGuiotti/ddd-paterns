@@ -19,7 +19,8 @@ describe("Customer Domain Events", () => {
         const event = new CustomerCreatedEvent({ id: "1", name: "John" });
         const handler1 = new EnviaConsoleLog1Handler();
         const handler2 = new EnviaConsoleLog2Handler();
-
+        jest.spyOn(handler1, "handle");
+        jest.spyOn(handler2, "handle");
         const spy = jest.spyOn(console, "log");
 
         eventDispatcher.register(CustomerCreatedEvent.name, handler1);
@@ -27,6 +28,8 @@ describe("Customer Domain Events", () => {
 
         eventDispatcher.notify(event);
 
+        expect(handler1.handle).toHaveBeenCalled();
+        expect(handler2.handle).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(`Esse é o primeiro console.log do evento: ${JSON.stringify(event)}`);
         expect(spy).toHaveBeenCalledWith(`Esse é o segundo console.log do evento: ${JSON.stringify(event)}`);
     });
