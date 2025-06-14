@@ -20,15 +20,14 @@ describe("Customer Domain Events", () => {
         const handler1 = new EnviaConsoleLog1Handler();
         const handler2 = new EnviaConsoleLog2Handler();
 
-        const spy = jest.spyOn(console, "log").mockImplementation();
+        const spy = jest.spyOn(console, "log");
 
         eventDispatcher.register(CustomerCreatedEvent.name, handler1);
         eventDispatcher.register(CustomerCreatedEvent.name, handler2);
 
         eventDispatcher.notify(event);
 
-        expect(spy).toHaveBeenCalledWith("Esse é o primeiro console.log do evento: CustomerCreated");
-        expect(spy).toHaveBeenCalledWith("Esse é o segundo console.log do evento: CustomerCreated");
-        spy.mockRestore();
+        expect(spy).toHaveBeenCalledWith(`Esse é o primeiro console.log do evento: ${JSON.stringify(event)}`);
+        expect(spy).toHaveBeenCalledWith(`Esse é o segundo console.log do evento: ${JSON.stringify(event)}`);
     });
 });
